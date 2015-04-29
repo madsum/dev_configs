@@ -1,0 +1,12 @@
+[user]
+	name = masum
+	email = masum.islam@fnxsolutions.com
+[merge]
+	tool = meld
+[mergetool "meld"]
+	path = /usr/local/bin/meld
+[alias]
+	updated = show --pretty=format: --name-only
+	lga = log --graph --oneline --all --decorate
+	untrack = update-index --assume-unchanged
+	track = update-index --no-assume-unchanged

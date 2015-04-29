@@ -1,0 +1,44 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+LinkedList	../../practice/gdb/main.cc	/^  LinkedList () : head_(0) {};$/;"	f	class:LinkedList	access:public	signature:()
+LinkedList	../../practice/gdb/main.cc	/^class LinkedList {$/;"	c	file:
+LinkedList::LinkedList	../../practice/gdb/main.cc	/^  LinkedList () : head_(0) {};$/;"	f	class:LinkedList	access:public	signature:()
+LinkedList::delete_nodes	../../practice/gdb/main.cc	/^  void delete_nodes (void) {$/;"	f	class:LinkedList	file:	access:private	signature:(void)
+LinkedList::head_	../../practice/gdb/main.cc	/^  Node<T> *head_;$/;"	m	class:LinkedList	file:	access:private
+LinkedList::insert	../../practice/gdb/main.cc	/^  int insert (const T &new_item) {$/;"	f	class:LinkedList	access:public	signature:(const T &new_item)
+LinkedList::print	../../practice/gdb/main.cc	/^  void print (void) {$/;"	f	class:LinkedList	access:public	signature:(void)
+LinkedList::remove	../../practice/gdb/main.cc	/^  int remove (const T &item_to_remove) {$/;"	f	class:LinkedList	access:public	signature:(const T &item_to_remove)
+LinkedList::~LinkedList	../../practice/gdb/main.cc	/^  ~LinkedList () { delete_nodes (); };$/;"	f	class:LinkedList	access:public	signature:()
+Node	../../practice/gdb/main.cc	/^  Node ();$/;"	p	class:Node	file:	access:private	signature:()
+Node	../../practice/gdb/main.cc	/^  Node (const T &value, Node<T> *next = 0) : value_(value), next_(next) {$/;"	f	class:Node	access:public	signature:(const T &value, Node<T> *next = 0)
+Node	../../practice/gdb/main.cc	/^class Node {$/;"	c	file:
+Node::Node	../../practice/gdb/main.cc	/^  Node ();$/;"	p	class:Node	file:	access:private	signature:()
+Node::Node	../../practice/gdb/main.cc	/^  Node (const T &value, Node<T> *next = 0) : value_(value), next_(next) {$/;"	f	class:Node	access:public	signature:(const T &value, Node<T> *next = 0)
+Node::next	../../practice/gdb/main.cc	/^  Node<T>* next () const { return next_; }$/;"	f	class:Node	access:public	signature:() const
+Node::next	../../practice/gdb/main.cc	/^  void next (Node<T> *new_next) { next_ = new_next; };$/;"	f	class:Node	access:public	signature:(Node<T> *new_next)
+Node::next_	../../practice/gdb/main.cc	/^  Node<T> *next_;$/;"	m	class:Node	file:	access:private
+Node::value	../../practice/gdb/main.cc	/^  const T& value () const { return value_; }$/;"	f	class:Node	access:public	signature:() const
+Node::value	../../practice/gdb/main.cc	/^  void value (const T &value) { value_ = value; }$/;"	f	class:Node	access:public	signature:(const T &value)
+Node::value_	../../practice/gdb/main.cc	/^  T value_;$/;"	m	class:Node	file:	access:private
+Node::~Node	../../practice/gdb/main.cc	/^  ~Node () {$/;"	f	class:Node	access:public	signature:()
+T	../../practice/gdb/main	/^@/;"	v
+Y	../../practice/gdb/main	/^@/;"	v
+delete_nodes	../../practice/gdb/main.cc	/^  void delete_nodes (void) {$/;"	f	class:LinkedList	file:	access:private	signature:(void)
+head_	../../practice/gdb/main.cc	/^  Node<T> *head_;$/;"	m	class:LinkedList	file:	access:private
+insert	../../practice/gdb/main.cc	/^  int insert (const T &new_item) {$/;"	f	class:LinkedList	access:public	signature:(const T &new_item)
+main	../../practice/gdb/main.cc	/^int main (int argc, char **argv) {$/;"	f	signature:(int argc, char **argv)
+next	../../practice/gdb/main.cc	/^  Node<T>* next () const { return next_; }$/;"	f	class:Node	access:public	signature:() const
+next	../../practice/gdb/main.cc	/^  void next (Node<T> *new_next) { next_ = new_next; };$/;"	f	class:Node	access:public	signature:(Node<T> *new_next)
+next_	../../practice/gdb/main.cc	/^  Node<T> *next_;$/;"	m	class:Node	file:	access:private
+number_instantiated	../../practice/gdb/main.cc	/^int number_instantiated = 0;$/;"	v
+print	../../practice/gdb/main.cc	/^  void print (void) {$/;"	f	class:LinkedList	access:public	signature:(void)
+remove	../../practice/gdb/main.cc	/^  int remove (const T &item_to_remove) {$/;"	f	class:LinkedList	access:public	signature:(const T &item_to_remove)
+value	../../practice/gdb/main.cc	/^  const T& value () const { return value_; }$/;"	f	class:Node	access:public	signature:() const
+value	../../practice/gdb/main.cc	/^  void value (const T &value) { value_ = value; }$/;"	f	class:Node	access:public	signature:(const T &value)
+value_	../../practice/gdb/main.cc	/^  T value_;$/;"	m	class:Node	file:	access:private
+~LinkedList	../../practice/gdb/main.cc	/^  ~LinkedList () { delete_nodes (); };$/;"	f	class:LinkedList	access:public	signature:()
+~Node	../../practice/gdb/main.cc	/^  ~Node () {$/;"	f	class:Node	access:public	signature:()

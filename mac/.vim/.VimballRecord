@@ -1,0 +1,2 @@
+editqf.vba: call delete('/home/dev/.vim/doc/editqf.txt')|call delete('/home/dev/.vim/plugin/editqf.vim')
+hier.vmb: call delete('/home/dev/.vim/doc/hier.txt')|call delete('/home/dev/.vim/plugin/hier.vim')
