@@ -1,0 +1,64 @@
+[user]
+	name = Masum Islam
+	email = muhammed.islam@ericsson.com
+[core]
+	editor = "/usr/bin/subl" -n -w
+[alias]
+	pull = pull --rebase
+	ch = checkout
+	c = commit
+	b = branch
+	l = log
+	s = status	
+	st2 = status -s
+	ln = log --oneline --graph --all --decorate
+	ch = checkout
+	modify = show --pretty="format:" --name-only
+	lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+	lg = !"git lg1"
+	ls = log --stat --pretty=short --graph
+
+	
+	# this will show all files committed by the commit id hash number
+	files = "![ x$# != x1 ]&&echo "commit-ish required" >&2 || git diff --name-status \"$1\"^ \"$1\" #"
+
+	# it will mark a stage file to ignore even if it is changed	
+	ignore = "![ x$# != x1 ]&&echo "commit-ish required" >&2 || git update-index --assume-unchanged \"$1\" #"
+	
+	# it will bring the file in tracking state if it were marked by --assume-unchanged earlier
+	track = "![ x$# != x1 ]&&echo "commit-ish required" >&2 ||   git update-index --no-assume-unchanged \"$1\" #"
+
+	#  list of files marked --assume-unchanged
+	ignored = !git ls-files -v | grep "^[[:lower:]]"
+
+	# this will show all files committed by the commit id hash number
+	logbyid = "![ x$# != x1 ]&&echo "commit-ish required" >&2 || git log -1 --name-status \"$1\"^ \"$1\" #"
+
+	# this will show all files committed by the commit id hash number
+	logbymsg = "![ x$# != x1 ]&&echo "commit-ish required" >&2 || git show :/\"$1\" #"
+
+	repo = remote show origin
+
+[difftool]
+	prompt = false
+	prompt = false
+[push]
+	default = current
+[commit]
+	template = ~/commit-msg
+[merge]
+	tool = meld
+[diff]
+	tool = meld
+[color]
+	ui = true
+[credential]
+	helper = cache --timeout=360000
+
+[mergetool "diffmerge"]
+	cmd = /usr/bin/meld --merge --result=$MERGED $LOCAL $BASE $REMOTE
+[mergetool]
+	keepBackup = false
+[difftool "diffmerge"]
+	cmd = /usr/bin/meld $LOCAL $REMOTE
