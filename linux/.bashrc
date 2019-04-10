@@ -129,10 +129,5 @@ fi
 source ~/git-prompt.sh
 PROMPT_COMMAND='__posh_git_ps1 "\w " "# ";'
 
-#JAVA_HOME='/usr/lib/jvm/java-8-oracle/'
-#export PATH=${PATH}:/usr/lib/jvm/java-8-oracle/
-
 export JAVA_HOME='/usr/lib/jvm/java-8-oracle'
 export PATH=$JAVA_HOME/bin:$PATH
-
-
