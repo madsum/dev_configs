@@ -60,7 +60,11 @@
   # shortcut for ls -la
   function ll(){
     dir
+  }
 
+  # shortcut for ls -la
+  function build(){
+    mvn clean install
   }
 
   # copy current path to clipborad
