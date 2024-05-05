@@ -1,6 +1,6 @@
 [user]
-	name = Masum Islam
-	email = madsum@gmail.com
+	name = Masi boo
+	email = masiboo@gmail.com
 
 [user]
 
@@ -65,7 +65,8 @@
 #	helper = manager
 
 [core]
-	editor = code --wait
+	editor = \"C:\\Users\\dev\\AppData\\Local\\Programs\\Microsoft VS Code\\bin\\code\" --wait
+	autocrlf = true
         
 [filter "lfs"]
 	process = git-lfs filter-process
@@ -80,8 +81,10 @@
 	directory = C:/dev/cts/WORKING-VERSION/deploy/auction-management-by-cqrs
 	directory = C:/dev/cts/WORKING-VERSION/auction-management-by-cqrl/auction-management-by-cqrl
 	directory = C:/dev/dcsa2/DCSA-TNT/DCSA-Information-Model
-[credential]
-	helper = manager-core
+	directory = C:/dev/ng/Angular16/DemoAngular16
+	directory = C:/dev/ng/check/v3/drag-drop-circl
+#[credential]
+#	helper = manager-core
 
 [diff]
 	tool = meld
