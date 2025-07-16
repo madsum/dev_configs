@@ -1,4 +1,5 @@
 #  Kill process using a given network port
+# killp 8080
 function killp( [ValidateNotNullOrEmpty()] [int] $Port ) {
   $netstat = netstat.exe -ano | select -Skip 4
   $p_line = $netstat | ? { $p = (-split $_ | select -Index 1) -split ':' | select -Last 1; $p -eq $Port } | select -First 1
@@ -16,40 +17,49 @@ function killp( [ValidateNotNullOrEmpty()] [int] $Port ) {
   Write-Host "  " $proc.Path
   Write-Host "  " $prPageable pageableoc.CommandLine
 }
-# killp 8080
 
-# kill all java process
 
-function killjava() {
-  taskkill /im java.exe /F
-  taskkill /im javaw.exe /F
+function killjava {
+    $javaProcs = Get-Process java -ErrorAction SilentlyContinue
+
+    if ($javaProcs) {
+        foreach ($proc in $javaProcs) {
+            try {
+                Stop-Process -Id $proc.Id -Force
+                Write-Host "✅ Killed Java process PID $($proc.Id) ($($proc.ProcessName))"
+            } catch {
+                Write-Host "❌ Failed to kill PID $($proc.Id): $($_.Exception.Message)"
+            }
+        }
+    } else {
+        Write-Host "ℹ️ No running Java processes found"
+    }
 }
 
-#  Kill process using a given network port
-function killp( [ValidateNotNullOrEmpty()] [int] $Port ) {
-  $netstat = netstat.exe -ano | Select-Object -Skip 4
-  $p_line = $netstat | ? { $p = (-split $_ | select -Index 1) -split ':' | select -Last 1; $p -eq $Port } | select -First 1
-  if (!$p_line) { Write-Host "No process found using port" $Port; return }
-  $p_id = $p_line -split '\s+' | select -Last 1
-  if (!$p_id) { throw "Can't parse process id for port $Port" }
-  if ($p_id -eq '0') { Write-Warning $p_line; return }
 
-  $proc = Get-CimInstance win32_process -Filter "ProcessId = $p_id"
-  if (!$proc) { Write-Host "Process with pid $p_id using port $Port is no longer running" }
-  Invoke-CimMethod $proc -MethodName "Terminate" | Out-Null
+# killport 3000 8080 5000
+function killport {
+    param (
+        [Parameter(Mandatory = $true, ValueFromRemainingArguments = $true)]
+        [int[]]$ports
+    )
 
-  #$p_name = ps -Id $p_id -ea 0 | kill -Force -PassThru | % ProcessName
-  Write-Host "Process killed: $($proc.Name) (id $p_id) using port" $Port
-  Write-Host "  " $proc.Path
-  Write-Host "  " $prPageable pageableoc.CommandLine
-}
-# killp 8080
+    foreach ($port in $ports) {
+        $processId = netstat -aon | Select-String ":$port\s+.*LISTENING\s+(\d+)" | ForEach-Object {
+            ($_ -split '\s+')[-1]
+        } | Select-Object -First 1
 
-# kill all java process
-
-function killjava() {
-  taskkill /im java.exe /F
-  taskkill /im javaw.exe /F
+        if ($processId) {
+            try {
+                Stop-Process -Id $processId -Force
+                Write-Host "✅ Killed PID $processId on port ${port}"
+            } catch {
+                Write-Host "❌ Failed to kill PID $processId on port ${port}: $($_.Exception.Message)"
+            }
+        } else {
+            Write-Host "ℹ️ Nothing running on port ${port}"
+        }
+    }
 }
 
 # open file manager 
@@ -170,7 +180,31 @@ function j21() {
   $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
 }
 
-Import-Module posh-git
+function j23() {
+  $java23 = 'C:\app\jdk-23\bin'
+  $oldPath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path
+  $newPath = "$java23;$oldPath"
+  Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $newPath
+  # set JAVA_HOME to JAVA23
+  $JAVA_HOME = $java23 -replace "\\bin", ""
+  [System.Environment]::SetEnvironmentVariable('JAVA_HOME', $JAVA_HOME, [System.EnvironmentVariableTarget]::Machine)
+  # reload environment in current session
+  $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
+}
+
+function gv21() {
+  $gv21 = 'C:\app\graalvm-jdk-21\bin'
+  $oldPath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path
+  $newPath = "$gv21;$oldPath"
+  Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $newPath
+  # set JAVA_HOME to graalvm-jdk-21
+  $JAVA_HOME = $gv21 -replace "\\bin", ""
+  [System.Environment]::SetEnvironmentVariable('JAVA_HOME', $JAVA_HOME, [System.EnvironmentVariableTarget]::Machine)
+  # reload environment in current session
+  $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
+}
+
+#Import-Module posh-git
 
 # Import the Chocolatey Profile that contains the necessary code to enable
 # tab-completions to function for `choco`.
@@ -181,3 +215,7 @@ $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 if (Test-Path($ChocolateyProfile)) {
   Import-Module "$ChocolateyProfile"
 }
+
+Import-Module posh-git
+
+#Import-Module 'C:\tools\poshgit\dahlbyk-posh-git-9bda399\src\posh-git.psd1'
